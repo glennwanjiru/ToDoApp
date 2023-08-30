@@ -1,5 +1,5 @@
 <script>
-  const { default: Authenticate } = require("../components/Authenticate.svelte");
+  import Authenticate from "../components/Authenticate.svelte";
 
 </script>
 <Authenticate/>
