@@ -1,40 +1,71 @@
-<script>
-
-      
-    let todolist = ["Make a 3D model"];
+<script>  
+    let todolist = ["Thank God"];
     let currTodo=''
-    error=false
+    let error=false
 
     function addTodo(){
         error=false;
         if (!currTodo){
             error=true;
         }
-        todolist.push(currTodo);
+        todolist=[...todolist, currTodo];
+        currTodo="";
 
     }
+    function editTodo(index){
+        let newTodolist =todolist.filter((val,i)=>{
+            return i !== index;
+        });
+        currTodo=todolist[index]
+        todolist=newTodolist
+
+    }
+    function removeTodo(index){
+        let newTodolist =todolist.filter((val,i)=>{
+            console.log(i.index,i !==index);
+            return i !== index;
+        });
+        
+        todolist=newTodolist
 
 
+    }
 </script>
 
 <div class="mainContainer">
     <div class='headerContainer'>
         <h1>ToDo List</h1>
+        <div class="headerBtns">
         <button><i class="fa-regular fa-floppy-disk"></i><p>Save</p></button>
+        <button><i class="fa-solid fa-right-from-bracket"></i><p>Logout</p></button>
+        </div>
     </div>
     
     <main>
+        {#if todolist.length===0}
+        <p>
+            You Have nothing in your ToDo List!
+        </p>
+        {/if}
         {#each todolist as todo, index}
         <div class="todo">
-            {index + 1}. {todo}
+            <p>
+              {index + 1}. {todo}
+            </p>
+            <div class="actions">
+
+                 <i on:click={()=>{editTodo(index)}} on:keydown={()=>{}} class="fa-regular fa-pen-to-square"/>
+                 <i on:click={()=>{removeTodo(index)}} on:keydown={()=>{}} class="fa-regular fa-trash-can"></i>
+
+            </div>
         </div>
         {/each}
 
     </main>
 
-    <div class={"enterTodo" + "errorBorder"}>
+    <div class={"enterTodo " +(error ? 'errorBorder' : "")} >
         <input bind:value={currTodo} type="text" placeholder="Enter todo"/>
-        <button>ADD</button>
+        <button on:click={addTodo}>ADD</button>
     </div>
 
 </div>
@@ -56,6 +87,12 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        
+    }
+    .headerBtns{
+        display: flex;
+        align-items: center;
+        gap: 14px;
     }
     .headerContainer button{
         background: #003c5b;
@@ -83,6 +120,25 @@
         flex-direction: column;
         gap: 8px;
         flex: 1;
+    }
+    .todo{
+        border-left: 1px solid cyan;
+        padding: 8px 14px;
+        align-items: center;
+        justify-content: space-between;
+        display: flex;
+    }
+    .actions{
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        font-size: 1.3rem;
+    }
+    .actions i{
+        cursor: pointer;
+    }
+    .actions i:hover{
+        color: coral;
     }
     
     .enterTodo{
