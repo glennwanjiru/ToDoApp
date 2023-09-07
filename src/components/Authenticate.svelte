@@ -9,7 +9,7 @@ let error=false;
 let register= false;
 let authenticating=false;
 
-async function handleAuthenticate(){
+async function handleAuthenticate()
 {
     if (authenticating){
         return;
@@ -35,7 +35,7 @@ async function handleAuthenticate(){
     }
 
 }
-}
+
  
 function handleRegister()
 {
