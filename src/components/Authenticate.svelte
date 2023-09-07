@@ -1,17 +1,35 @@
 
 <script>
+  import { authHandlers } from "./store/store";
+
 let email='';
 let password='';
 let ConfirmPassword='';
-let error=false
-let register= false
+let error=false;
+let register= false;
+let authenticating=true;
 
-function handleAuthentication()
+async function handleAuthentication()
 {
+    authenticating=true;
     if (!email || !password ||(register && !ConfirmPassword)){
         error=true
         return;
     }
+
+    try{
+        if (!register){
+        await authHandlers.login(email,password)
+    }
+    else{
+        await authHandlers.signup(email,password);
+    }
+
+    }catch(err){
+        console.log('there was an Auth error',err)
+        error=true;
+    }
+
 }
  
 function handleRegister()
@@ -52,7 +70,13 @@ function handleRegister()
         </label>
         {/if}
 
-        <button type="button">Submit</button>
+        <button type="button" class="submitBtn">
+            {#if authenticating}
+            <i class="fa-solid fa-spinner spin"/>
+            {:else}
+            Submit
+            {/if}
+        </button>
     </form>
     <div class="options">
         <p> Or</p>
@@ -135,6 +159,8 @@ function handleRegister()
     padding: 15px 0;
     border-radius: 5px;
     font-size: 1.3rem;
+    display: grid;
+    place-items: center;
 
     }
     form button:hover{
@@ -216,6 +242,18 @@ function handleRegister()
         color: cyan;
         cursor: pointer;
     }
+    .spin{
+        animation: spin 2s infinite;
+    }
+    @keyframes spin{
+        from{
+            transform: rotate(0deg);
+        }
+        to{
+            transform: rotate(360deg);
+        }
+    }
+
 
 
 </style>
