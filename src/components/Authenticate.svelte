@@ -11,6 +11,10 @@ let authenticating=false;
 
 async function handleAuthentication()
 {
+    if (authenticating){
+        return;
+    }
+
     authenticating=true;
     if (!email || !password ||(register && !ConfirmPassword)){
         error=true
@@ -54,9 +58,6 @@ function handleRegister()
         <label>
 
             <p class={email ? 'above':'centre'}>Email</p>
-
-
-
             <input bind:value={email} type="email" placeholder="email" />
         </label>
         <label>
@@ -174,15 +175,15 @@ function handleRegister()
         pointer-events: none;
         border-radius: 4px;
         padding: 0 6px;
-        font-size: 0.8rem;
+        font-size: 0.8rem; 
 
     }
     .above{
         top:0;
         left: 24px;
         background: navy;
-        border: 0.7rem;
-
+        border:1px solid blue;
+        font-size:0.7rem;
 
     }
     .centre{
@@ -196,6 +197,7 @@ function handleRegister()
     .error{
         color: coral;
         font-size:0.9rem ;
+        text-align: center;
     }
     .options{
         padding: 15px 0;
