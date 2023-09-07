@@ -7,7 +7,7 @@ let password='';
 let ConfirmPassword='';
 let error=false;
 let register= false;
-let authenticating=true;
+let authenticating=false;
 
 async function handleAuthentication()
 {
@@ -70,7 +70,7 @@ function handleRegister()
         </label>
         {/if}
 
-        <button type="button" class="submitBtn">
+        <button on:click={Authenticate} type="button" class="submitBtn">
             {#if authenticating}
             <i class="fa-solid fa-spinner spin"/>
             {:else}
