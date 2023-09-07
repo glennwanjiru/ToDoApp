@@ -208,7 +208,7 @@ function handleRegister()
         gap: 4px;
         /*width: 100%;*/
     }
-    .options >p{
+    .options > p {
         position: relative;
         text-align: center;
         width: fit-content;
